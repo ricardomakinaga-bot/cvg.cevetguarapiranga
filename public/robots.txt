@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.cvg.cevetguarapiranga.com.br/sitemap.xml

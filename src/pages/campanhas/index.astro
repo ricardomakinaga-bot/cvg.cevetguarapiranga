@@ -1,0 +1,29 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import CampaignCard from "@/components/cards/CampaignCard.astro";
+import HeroSection from "@/components/HeroSection.astro";
+import Layout from "@/components/Layout.astro";
+
+const page = await getEntry("pages", "campanhas");
+if (!page) throw new Error("Missing campaigns page content");
+const campaigns = await getCollection("campaigns");
+---
+
+<Layout title={page.data.title} description={page.data.description} canonical="/campanhas/">
+  <HeroSection title={page.data.title} description={page.data.description} primaryLabel={page.data.ctaPrimary} secondaryLabel={page.data.ctaSecondary} secondaryHref="/servicos" variant="listing" />
+  <section class="cvg-section bg-white">
+    <div class="cvg-shell">
+      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {campaigns.map((campaign) => (
+          <CampaignCard
+            title={campaign.data.title}
+            description={campaign.data.description}
+            service={campaign.data.service}
+            status={campaign.data.status}
+            href={`/campanhas/${campaign.slug}/`}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

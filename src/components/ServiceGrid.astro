@@ -1,0 +1,17 @@
+---
+import ServiceCard from "@/components/ServiceCard.astro";
+import { services } from "@/lib/site";
+---
+
+<section class="cvg-section bg-white">
+  <div class="cvg-shell">
+    <div class="mb-8 max-w-3xl">
+      <p class="text-sm font-bold uppercase tracking-wide text-cvg-primary">Servicos</p>
+      <h2 class="text-3xl font-extrabold text-cvg-text">Servicos veterinarios para caes e gatos</h2>
+      <p class="mt-3 text-cvg-muted">A indicacao de cada servico depende da avaliacao do paciente e da orientacao da equipe veterinaria.</p>
+    </div>
+    <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {services.map((service) => <ServiceCard {...service} />)}
+    </div>
+  </div>
+</section>

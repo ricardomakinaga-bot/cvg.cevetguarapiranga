@@ -1,0 +1,13 @@
+---
+import { getEntry } from "astro:content";
+import ContentPage from "@/components/ContentPage.astro";
+import Layout from "@/components/Layout.astro";
+
+const entry = await getEntry("pages", "home");
+if (!entry) throw new Error("Missing home content");
+const { Content } = await entry.render();
+---
+
+<Layout title={entry.data.title} description={entry.data.description} canonical="/">
+  <ContentPage entry={entry} Content={Content} />
+</Layout>

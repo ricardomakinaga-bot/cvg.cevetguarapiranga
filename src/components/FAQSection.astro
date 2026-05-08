@@ -1,0 +1,20 @@
+---
+import { faqs } from "@/lib/site";
+---
+
+<section class="cvg-section bg-cvg-background">
+  <div class="cvg-shell">
+    <div class="mb-8 max-w-3xl">
+      <p class="text-sm font-bold uppercase tracking-wide text-cvg-primary">Duvidas frequentes</p>
+      <h2 class="text-3xl font-extrabold text-cvg-text">Orientacao clara para o proximo passo</h2>
+    </div>
+    <div class="grid gap-4">
+      {faqs.map((faq) => (
+        <details class="rounded-lg border border-cvg-border bg-white p-5">
+          <summary class="cursor-pointer text-lg font-bold text-cvg-text">{faq.question}</summary>
+          <p class="mt-3 text-cvg-muted">{faq.answer}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

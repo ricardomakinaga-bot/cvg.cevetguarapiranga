@@ -1,0 +1,33 @@
+---
+import { contact, navItems } from "@/lib/site";
+---
+
+<footer class="border-t border-cvg-border bg-cvg-deep text-white">
+  <div class="cvg-shell grid gap-8 py-10 md:grid-cols-[1.4fr_1fr_1fr]">
+    <div>
+      <p class="mb-2 text-lg font-extrabold">{contact.name}</p>
+      <p class="max-w-md text-white/82">
+        Atendimento veterinario 24h para caes e gatos na Guarapiranga, com conteudo educativo que nao substitui avaliacao veterinaria.
+      </p>
+      <button type="button" class="mt-4 text-left text-sm font-semibold underline decoration-white/50 underline-offset-4" data-consent-open>
+        Preferencias de privacidade
+      </button>
+    </div>
+    <div>
+      <p class="mb-3 font-bold">Links</p>
+      <ul class="space-y-2 p-0">
+        {navItems.map((item) => (
+          <li class="list-none"><a class="text-white/86 no-underline hover:text-white" href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <p class="mb-3 font-bold">Contato</p>
+      <address class="not-italic text-white/86">
+        {contact.addressSummary}<br />
+        {contact.phoneLabel}<br />
+        Atendimento 24h a confirmar antes de deploy final.
+      </address>
+    </div>
+  </div>
+</footer>

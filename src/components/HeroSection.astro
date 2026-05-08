@@ -1,0 +1,52 @@
+---
+import { contact, trustBadges } from "@/lib/site";
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description: string;
+  primaryLabel?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+  variant?: "institutional" | "service" | "emergency" | "listing" | "contact";
+  showMobileNextCue?: boolean;
+}
+
+const {
+  eyebrow = "Centro Veterinario Guarapiranga",
+  title,
+  description,
+  primaryLabel = "Falar com a equipe",
+  secondaryLabel = "Conhecer servicos",
+  secondaryHref = "/servicos",
+  variant = "institutional",
+  showMobileNextCue = false,
+} = Astro.props;
+const isEmergency = variant === "emergency";
+---
+
+<section class:list={["cvg-hero", "bg-cvg-background", isEmergency ? "border-l-4 border-cvg-emergency" : ""]}>
+  <div class:list={["cvg-shell grid gap-8 py-8 md:py-14 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:py-20", showMobileNextCue ? "pb-6 md:pb-14 lg:pb-20" : ""]}>
+    <div>
+      <p class:list={["mb-4 inline-flex rounded-full border px-3 py-1 text-sm font-bold", isEmergency ? "border-cvg-emergency/40 bg-white text-cvg-deep" : "border-cvg-soft bg-cvg-clinical text-cvg-deep"]}>
+        {eyebrow}
+      </p>
+      <h1 class="max-w-4xl text-4xl font-extrabold leading-tight tracking-normal text-cvg-text md:text-5xl">
+        {title}
+      </h1>
+      <p class="mt-5 max-w-3xl text-lg text-cvg-muted">{description}</p>
+      <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+        <a class="cvg-button cvg-button-primary" href={contact.whatsappHref}>{primaryLabel}</a>
+        <a class="cvg-button cvg-button-secondary" href={secondaryHref}>{secondaryLabel}</a>
+      </div>
+      <ul class="mt-7 grid grid-cols-2 gap-2 lg:grid-cols-4">
+        {trustBadges.map((badge) => (
+          <li class="list-none rounded-lg border border-cvg-border bg-white px-3 py-2 text-sm font-bold text-cvg-deep">{badge}</li>
+        ))}
+      </ul>
+    </div>
+    <div class="hidden overflow-hidden rounded-lg border border-cvg-border bg-white shadow-cvg md:block">
+      <img src="/assets/cvg-institucional.png" alt="Fachada institucional do Centro Veterinario Guarapiranga" class="h-full min-h-[260px] w-full object-cover" />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,17 @@
+---
+interface Props {
+  title: string;
+  href: string;
+  description: string;
+  category?: string;
+}
+
+const { title, href, description, category } = Astro.props;
+---
+
+<article class="cvg-card flex h-full flex-col p-5">
+  {category && <p class="mb-2 text-sm font-bold uppercase tracking-wide text-cvg-primary">{category}</p>}
+  <h2 class="text-xl font-extrabold leading-snug text-cvg-text">{title}</h2>
+  <p class="mt-3 flex-1 text-cvg-muted">{description}</p>
+  <a class="mt-5 font-bold text-cvg-deep no-underline hover:text-cvg-primary" href={href}>Ler artigo</a>
+</article>

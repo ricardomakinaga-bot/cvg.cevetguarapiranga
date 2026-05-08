@@ -1,0 +1,19 @@
+---
+interface Props {
+  title: string;
+  href: string;
+  summary: string;
+  image?: string;
+}
+
+const { title, href, summary, image } = Astro.props;
+---
+
+<article class="cvg-card flex h-full flex-col overflow-hidden">
+  {image && <img src={image} alt="" class="h-36 w-full object-cover" loading="lazy" />}
+  <div class="flex flex-1 flex-col p-5">
+    <h3 class="text-xl font-bold text-cvg-text">{title}</h3>
+    <p class="mt-2 flex-1 text-cvg-muted">{summary}</p>
+    <a href={href} class="mt-4 font-bold text-cvg-deep no-underline hover:text-cvg-primary">Ver servico</a>
+  </div>
+</article>

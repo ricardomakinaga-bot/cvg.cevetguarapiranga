@@ -1,0 +1,72 @@
+---
+import { contact, navItems } from "@/lib/site";
+---
+
+<header class="sticky top-0 z-40 border-b border-cvg-border bg-white/95 backdrop-blur">
+  <div class="cvg-shell flex min-h-[72px] items-center justify-between gap-2 sm:gap-4">
+    <a href="/" class="flex items-center gap-3 text-cvg-deep no-underline" aria-label="Centro Veterinario Guarapiranga">
+      <img src="/assets/cvg-logo.jpg" alt="" class="h-11 w-11 rounded-full border border-cvg-border bg-white object-contain" />
+      <span class="max-w-[190px] text-base font-extrabold leading-tight sm:max-w-none sm:text-lg">{contact.name}</span>
+    </a>
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="Navegacao principal">
+      {navItems.map((item) => (
+        <a class="rounded-xl px-3 py-2 font-semibold text-cvg-muted no-underline hover:bg-cvg-clinical hover:text-cvg-deep" href={item.href}>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+    <a href={contact.whatsappHref} class="cvg-button cvg-button-primary hidden sm:inline-flex">Falar com a equipe</a>
+    <button
+      class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-xl border border-cvg-border bg-cvg-background text-cvg-deep lg:hidden"
+      type="button"
+      aria-label="Abrir menu de navegacao"
+      aria-expanded="false"
+      aria-controls="mobile-nav-panel"
+      data-mobile-nav-toggle
+    >
+      <span class="flex h-5 w-5 flex-col justify-center gap-1.5" aria-hidden="true">
+        <span class="block h-0.5 w-5 rounded bg-current"></span>
+        <span class="block h-0.5 w-5 rounded bg-current"></span>
+        <span class="block h-0.5 w-5 rounded bg-current"></span>
+      </span>
+    </button>
+  </div>
+  <nav id="mobile-nav-panel" class="border-t border-cvg-border bg-white lg:hidden" aria-label="Navegacao principal mobile" data-mobile-nav-panel hidden>
+    <div class="cvg-shell grid gap-1 py-3">
+      {navItems.map((item) => (
+        <a class:list={["rounded-lg px-3 py-3 font-bold text-cvg-muted no-underline hover:bg-cvg-clinical hover:text-cvg-deep", item.href.includes("atendimento-24h") ? "text-cvg-emergency" : ""]} href={item.href} data-mobile-nav-link>
+          {item.label}
+        </a>
+      ))}
+    </div>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.querySelector("[data-mobile-nav-toggle]");
+  const panel = document.querySelector("[data-mobile-nav-panel]");
+
+  function setMobileMenu(open: boolean) {
+    if (!(toggle instanceof HTMLButtonElement) || !(panel instanceof HTMLElement)) return;
+    toggle.setAttribute("aria-expanded", String(open));
+    panel.hidden = !open;
+  }
+
+  toggle?.addEventListener("click", () => {
+    setMobileMenu(toggle.getAttribute("aria-expanded") !== "true");
+  });
+
+  document.querySelectorAll("[data-mobile-nav-link]").forEach((link) => {
+    link.addEventListener("click", () => setMobileMenu(false));
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") setMobileMenu(false);
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!(toggle instanceof HTMLButtonElement) || !(panel instanceof HTMLElement)) return;
+    if (toggle.contains(event.target as Node) || panel.contains(event.target as Node)) return;
+    setMobileMenu(false);
+  });
+</script>

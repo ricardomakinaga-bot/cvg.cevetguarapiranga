@@ -1,0 +1,29 @@
+---
+import BaseHead from "@/components/BaseHead.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import FloatingWhatsAppButton from "@/components/FloatingWhatsAppButton.astro";
+import ConsentManager from "@/components/consent/ConsentManager.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+}
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <BaseHead title={Astro.props.title} description={Astro.props.description} canonical={Astro.props.canonical} />
+  </head>
+  <body class="min-h-screen bg-white text-cvg-text">
+    <Header />
+    <main id="conteudo">
+      <slot />
+    </main>
+    <Footer />
+    <FloatingWhatsAppButton />
+    <ConsentManager />
+  </body>
+</html>

@@ -1,0 +1,59 @@
+---
+import type { CollectionEntry } from "astro:content";
+import FAQSection from "@/components/FAQSection.astro";
+import HeroSection from "@/components/HeroSection.astro";
+import LeadForm from "@/components/LeadForm.astro";
+import LocationMap from "@/components/LocationMap.astro";
+import ServiceGrid from "@/components/ServiceGrid.astro";
+
+interface Props {
+  entry: CollectionEntry<"pages">;
+  Content: any;
+}
+
+const { entry, Content } = Astro.props;
+const isHome = entry.data.pageType === "home";
+const isServices = entry.data.pageType === "services";
+const isContact = entry.data.pageType === "contact";
+const isEmergency = entry.data.route.includes("atendimento-24h");
+const heroVariant = isEmergency
+  ? "emergency"
+  : entry.data.pageType === "home" || entry.data.pageType === "services"
+    ? "institutional"
+    : entry.data.pageType;
+---
+
+<HeroSection
+  title={entry.data.title}
+  description={entry.data.description}
+  primaryLabel={entry.data.ctaPrimary}
+  secondaryLabel={entry.data.ctaSecondary ?? "Conhecer servicos"}
+  secondaryHref={isContact ? "#localizacao" : "/servicos"}
+  variant={heroVariant}
+  showMobileNextCue={isHome || isEmergency}
+/>
+
+<section class="cvg-section bg-white">
+  <div class="cvg-shell">
+    <article class="cvg-prose">
+      <Content />
+    </article>
+    {entry.data.clinicalReviewRequired && (
+      <p class="mt-8 max-w-3xl rounded-lg border-l-4 border-cvg-emergency bg-cvg-background p-4 text-cvg-muted">
+        Conteudo educativo marcado para revisao clinica antes de publicacao final. Nao substitui avaliacao veterinaria.
+      </p>
+    )}
+  </div>
+</section>
+
+{(isHome || isServices) && <ServiceGrid />}
+{isContact ? (
+  <>
+    <LeadForm />
+    <LocationMap />
+  </>
+) : (
+  <LeadForm />
+)}
+{isHome && <LocationMap />}
+<FAQSection />
