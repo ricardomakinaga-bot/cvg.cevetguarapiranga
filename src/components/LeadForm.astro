@@ -9,53 +9,64 @@ import ContactPanel from "@/components/ContactPanel.astro";
       text="Envie sua mensagem para orientarmos o melhor canal de atendimento para seu cao ou gato. Se houver sinais importantes ou piora repentina, procure avaliacao veterinaria."
       compact
     />
-    <form class="cvg-card grid gap-4 p-5" data-lead-form novalidate>
-      <div>
-        <label class="mb-1 block font-bold text-cvg-text" for="name">Seu nome</label>
-        <input class="min-h-11 w-full rounded-lg border border-cvg-border px-3 py-2" id="name" name="name" autocomplete="name" required />
-      </div>
-      <div>
-        <label class="mb-1 block font-bold text-cvg-text" for="phone">WhatsApp ou telefone</label>
-        <input class="min-h-11 w-full rounded-lg border border-cvg-border px-3 py-2" id="phone" name="phone" autocomplete="tel" required />
-      </div>
-      <div>
-        <label class="mb-1 block font-bold text-cvg-text" for="petName">Nome do pet</label>
-        <input class="min-h-11 w-full rounded-lg border border-cvg-border px-3 py-2" id="petName" name="petName" autocomplete="off" />
-      </div>
-      <div>
-        <label class="mb-1 block font-bold text-cvg-text" for="species">Cao ou gato?</label>
-        <select class="min-h-11 w-full rounded-lg border border-cvg-border px-3 py-2" id="species" name="species" required>
-          <option value="">Selecione</option>
-          <option>Cao</option>
-          <option>Gato</option>
-        </select>
-      </div>
-      <div>
-        <label class="mb-1 block font-bold text-cvg-text" for="reason">Motivo do contato</label>
-        <select class="min-h-11 w-full rounded-lg border border-cvg-border px-3 py-2" id="reason" name="reason" required>
-          <option value="">Selecione</option>
-          <option>Atendimento 24h</option>
-          <option>Consulta ou check-up</option>
-          <option>Exame ou laboratorio</option>
-          <option>Vacinas</option>
-          <option>Banho e tosa</option>
-          <option>Outro motivo</option>
-        </select>
-      </div>
-      <div>
-        <label class="mb-1 block font-bold text-cvg-text" for="message">Conte brevemente o que voce precisa</label>
-        <textarea class="min-h-28 w-full rounded-lg border border-cvg-border px-3 py-2" id="message" name="message" aria-describedby="message-help"></textarea>
-        <p id="message-help" class="mt-2 text-sm text-cvg-muted">Se houver sinais importantes, procure atendimento veterinario. O formulario nao substitui avaliacao urgente.</p>
-      </div>
-      <label class="flex gap-3 text-sm text-cvg-muted">
-        <input type="checkbox" required class="mt-1 h-4 w-4" />
-        <span>Ao enviar, voce autoriza o contato da equipe do CVG para responder sua solicitacao.</span>
-      </label>
-      <p class="hidden rounded-lg border border-cvg-alert/40 bg-white p-3 text-sm text-cvg-alert" data-form-error>
+    <form class="cvg-card grid gap-5 p-5 md:p-6" data-lead-form novalidate>
+      <fieldset class="grid gap-4 border-0 p-0">
+        <legend class="mb-1 text-sm font-extrabold uppercase text-cvg-primary">Tutor</legend>
+        <div>
+          <label class="mb-1 block font-bold text-cvg-text" for="name">Seu nome</label>
+          <input class="min-h-11 w-full rounded-lg border border-cvg-border px-3 py-2" id="name" name="name" autocomplete="name" required />
+        </div>
+        <div>
+          <label class="mb-1 block font-bold text-cvg-text" for="phone">WhatsApp ou telefone</label>
+          <input class="min-h-11 w-full rounded-lg border border-cvg-border px-3 py-2" id="phone" name="phone" autocomplete="tel" required />
+        </div>
+      </fieldset>
+      <fieldset class="grid gap-4 border-0 p-0">
+        <legend class="mb-1 text-sm font-extrabold uppercase text-cvg-primary">Pet e contexto</legend>
+        <div class="grid gap-4 md:grid-cols-2">
+          <div>
+            <label class="mb-1 block font-bold text-cvg-text" for="species">Cao ou gato?</label>
+            <select class="min-h-11 w-full rounded-lg border border-cvg-border px-3 py-2" id="species" name="species" required>
+              <option value="">Selecione</option>
+              <option>Cao</option>
+              <option>Gato</option>
+            </select>
+          </div>
+          <div>
+            <label class="mb-1 block font-bold text-cvg-text" for="petName">Nome do pet</label>
+            <input class="min-h-11 w-full rounded-lg border border-cvg-border px-3 py-2" id="petName" name="petName" autocomplete="off" />
+          </div>
+        </div>
+        <div>
+          <label class="mb-1 block font-bold text-cvg-text" for="reason">Motivo do contato</label>
+          <select class="min-h-11 w-full rounded-lg border border-cvg-border px-3 py-2" id="reason" name="reason" required>
+            <option value="">Selecione</option>
+            <option>Atendimento 24h</option>
+            <option>Consulta ou check-up</option>
+            <option>Exame ou laboratorio</option>
+            <option>Vacinas</option>
+            <option>Banho e tosa</option>
+            <option>Outro motivo</option>
+          </select>
+        </div>
+      </fieldset>
+      <fieldset class="grid gap-4 border-0 p-0">
+        <legend class="mb-1 text-sm font-extrabold uppercase text-cvg-primary">Mensagem e consentimento</legend>
+        <div>
+          <label class="mb-1 block font-bold text-cvg-text" for="message">Conte brevemente o que voce precisa</label>
+          <textarea class="min-h-28 w-full rounded-lg border border-cvg-border px-3 py-2" id="message" name="message" aria-describedby="message-help"></textarea>
+          <p id="message-help" class="mt-2 rounded-lg border border-cvg-primary/20 bg-cvg-clinical p-3 text-sm text-cvg-deep">Se houver sinais importantes, procure atendimento veterinario. O formulario nao substitui avaliacao urgente.</p>
+        </div>
+        <label class="flex gap-3 text-sm text-cvg-muted">
+          <input type="checkbox" required class="mt-1 h-4 w-4" />
+          <span>Ao enviar, voce autoriza o contato da equipe do CVG para responder sua solicitacao.</span>
+        </label>
+      </fieldset>
+      <p class="hidden rounded-lg border border-cvg-alert/40 border-l-4 border-l-cvg-alert bg-white p-3 text-sm text-cvg-alert" id="lead-form-error" data-form-error>
         Preencha nome, contato, especie, motivo e consentimento antes de enviar.
       </p>
-      <p class="hidden rounded-lg border border-cvg-primary/30 bg-cvg-clinical p-3 text-sm font-semibold text-cvg-deep" data-form-success>
-        Mensagem recebida. A equipe do CVG retornara pelo canal informado.
+      <p class="hidden rounded-lg border border-cvg-primary/30 border-l-4 border-l-cvg-primary bg-cvg-clinical p-3 text-sm font-semibold text-cvg-deep" id="lead-form-success" data-form-success>
+        Dados recebidos para orientar o contato pelo canal informado.
       </p>
       <button class="cvg-button cvg-button-primary w-full" type="submit">Enviar mensagem</button>
     </form>
@@ -71,6 +82,12 @@ import ContactPanel from "@/components/ContactPanel.astro";
       const error = leadForm.querySelector("[data-form-error]");
       const success = leadForm.querySelector("[data-form-success]");
       const valid = leadForm.checkValidity();
+      leadForm.querySelectorAll("input, select").forEach((field) => {
+        if (!(field instanceof HTMLInputElement || field instanceof HTMLSelectElement)) return;
+        field.toggleAttribute("aria-invalid", !field.checkValidity());
+        if (!field.checkValidity()) field.setAttribute("aria-describedby", "lead-form-error");
+        else if (field.getAttribute("aria-describedby") === "lead-form-error") field.removeAttribute("aria-describedby");
+      });
       error?.classList.toggle("hidden", valid);
       success?.classList.toggle("hidden", !valid);
       document.documentElement.dataset.leadFeedbackVisible = "true";

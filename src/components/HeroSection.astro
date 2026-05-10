@@ -28,30 +28,46 @@ const isEmergency = variant === "emergency";
 ---
 
 <section class:list={["cvg-hero relative overflow-hidden border-b border-cvg-border bg-cvg-background", isEmergency ? "border-l-4 border-cvg-emergency" : ""]}>
-  <div class="pointer-events-none absolute inset-x-0 top-0 h-32 bg-cvg-light-gradient opacity-75" aria-hidden="true"></div>
-  <div class="cvg-shell relative grid gap-8 py-8 md:py-14 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:py-16">
+  <div class:list={["pointer-events-none absolute inset-0", isEmergency ? "bg-cvg-light-gradient opacity-70" : "bg-cvg-primary-gradient opacity-95"]} aria-hidden="true"></div>
+  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-white" aria-hidden="true"></div>
+  <div class="cvg-shell relative grid gap-8 py-8 md:py-14 lg:min-h-[calc(100svh-112px)] lg:grid-cols-[minmax(0,0.94fr)_minmax(460px,0.86fr)] lg:items-center lg:gap-12 lg:py-12">
     <div>
-      <p class:list={["mb-4 inline-flex rounded-lg border px-3 py-1 text-sm font-bold", isEmergency ? "border-cvg-emergency/40 bg-white text-cvg-deep" : "border-cvg-soft bg-white text-cvg-deep"]}>
+      <p class:list={["cvg-motion-reveal mb-4 inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-sm font-bold", isEmergency ? "border-cvg-emergency/40 bg-white text-cvg-deep" : "border-white/50 bg-white/95 text-cvg-deep shadow-cvg-soft"]} style="--reveal-delay: 0ms">
+        <span class:list={["h-2.5 w-2.5 rounded-full", isEmergency ? "bg-cvg-emergency shadow-[0_0_0_6px_rgb(229_57_53_/_0.12)]" : "bg-cvg-primary shadow-[0_0_0_6px_rgb(25_118_210_/_0.16)]"]} aria-hidden="true"></span>
         {eyebrow}
       </p>
-      <h1 class="max-w-4xl text-4xl font-extrabold leading-tight tracking-normal text-cvg-text md:text-5xl lg:text-6xl">
+      <h1 class:list={["cvg-motion-reveal max-w-4xl text-4xl font-extrabold leading-tight tracking-normal md:text-5xl lg:text-[64px] lg:leading-[0.98]", isEmergency ? "text-cvg-text" : "text-white"]} style="--reveal-delay: 60ms">
         {title}
       </h1>
-      <p class="mt-5 max-w-3xl text-lg leading-8 text-cvg-muted">{description}</p>
-      <div class="mt-7">
+      <p class:list={["cvg-motion-reveal mt-5 max-w-3xl text-lg leading-8", isEmergency ? "text-cvg-muted" : "text-white/90"]} style="--reveal-delay: 120ms">{description}</p>
+      <div class="cvg-motion-reveal mt-7" style="--reveal-delay: 180ms">
         <CTAGroup
           primaryLabel={primaryLabel}
           primaryHref={contact.whatsappHref}
           secondaryLabel={secondaryLabel}
           secondaryHref={secondaryHref}
+          onDark={!isEmergency}
         />
       </div>
-      <ul class="mt-7 grid grid-cols-2 gap-2 lg:grid-cols-4" aria-label="Sinais de confianca do CVG">
+      <ul class="cvg-motion-reveal mt-7 grid grid-cols-2 gap-2 lg:grid-cols-4" style="--reveal-delay: 240ms" aria-label="Sinais de confianca do CVG">
         {trustBadges.map((badge) => <TrustBadge label={badge} />)}
       </ul>
     </div>
-    <div class="cvg-hero-media overflow-hidden rounded-lg border border-cvg-border bg-white shadow-cvg">
-      <img src="/assets/cvg-institucional.png" alt="Fachada institucional do Centro Veterinario Guarapiranga" class="h-full min-h-[240px] w-full object-cover md:min-h-[360px]" />
+    <div class="cvg-motion-reveal cvg-hero-media relative overflow-hidden rounded-xl border border-white/60 bg-white shadow-cvg-elevated" style="--reveal-delay: 300ms">
+      <div class="relative aspect-[4/3] md:aspect-[5/4]">
+        <img src="/assets/service-consultas.png" alt="Atendimento veterinario a gato no Centro Veterinario Guarapiranga" class="h-full w-full object-cover object-center" loading="eager" />
+        <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-cvg-text/45 via-transparent to-transparent" aria-hidden="true"></div>
+        <div class="absolute bottom-4 right-4 max-w-[320px] rounded-lg border border-cvg-border bg-white p-4 text-cvg-text shadow-cvg-elevated sm:p-5">
+          <div class="flex items-center gap-3">
+            <img src="/assets/cvg-logo.jpg" alt="" class="h-12 w-12 rounded-lg border border-cvg-border bg-white object-contain" loading="eager" />
+            <div>
+              <p class="text-xs font-bold uppercase tracking-wide text-cvg-primary">Fluxo claro</p>
+              <p class="font-extrabold leading-tight text-cvg-text">Contato, avaliacao e orientacao ao tutor</p>
+            </div>
+          </div>
+          <p class="mt-3 text-sm leading-6 text-cvg-muted">Triagem acolhedora, proximos passos visiveis e cuidado para caes e gatos.</p>
+        </div>
+      </div>
       <div class="grid gap-3 border-t border-cvg-border bg-white p-4 sm:grid-cols-3">
         <p class="text-sm text-cvg-muted"><strong class="block text-cvg-deep">24h</strong>Atendimento informado</p>
         <p class="text-sm text-cvg-muted"><strong class="block text-cvg-deep">Caes e gatos</strong>Cuidado veterinario</p>
@@ -59,7 +75,7 @@ const isEmergency = variant === "emergency";
       </div>
     </div>
     {showMobileNextCue && (
-      <a href="#quando-procurar" class="inline-flex items-center gap-2 text-sm font-bold text-cvg-deep no-underline lg:absolute lg:bottom-6 lg:left-4">
+      <a href="#quando-procurar" class:list={["inline-flex items-center gap-2 text-sm font-bold no-underline lg:absolute lg:bottom-6 lg:left-4", isEmergency ? "text-cvg-deep" : "text-white"]}>
         Ver quando procurar o CVG <span aria-hidden="true">↓</span>
       </a>
     )}

@@ -1,4 +1,5 @@
 ---
+import CTAGroup from "@/components/CTAGroup.astro";
 import ClinicalNotice from "@/components/ClinicalNotice.astro";
 
 const symptoms = [
@@ -14,16 +15,19 @@ const symptoms = [
 <section id="quando-procurar" class="cvg-section bg-cvg-background">
   <div class="cvg-shell grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
     <div>
-      <p class="text-sm font-bold uppercase tracking-wide text-cvg-primary">Quando procurar</p>
+      <p class="cvg-section-eyebrow">Quando procurar</p>
       <h2 class="mt-2 text-3xl font-extrabold leading-tight tracking-normal text-cvg-text md:text-4xl">Orientacao calma para decidir o proximo passo</h2>
       <p class="mt-4 text-cvg-muted">
         Em sinais importantes, procure avaliacao veterinaria. A equipe orienta os proximos passos conforme a avaliacao de cada cao ou gato.
       </p>
+      <div class="mt-6">
+        <CTAGroup primaryLabel="Falar com a equipe" secondaryLabel="Como chegar" secondaryHref="/contato#localizacao" />
+      </div>
     </div>
     <div>
       <ul class="grid gap-3 sm:grid-cols-2" aria-label="Sinais que indicam avaliacao veterinaria">
         {symptoms.map((symptom) => (
-          <li class="flex gap-3 rounded-lg border border-cvg-border bg-white p-3 text-cvg-muted shadow-sm">
+          <li class="cvg-card flex gap-3 p-3 text-cvg-muted">
             <span class="mt-1 h-2.5 w-2.5 flex-none rounded-full bg-cvg-emergency" aria-hidden="true"></span>
             <span>{symptom}</span>
           </li>
