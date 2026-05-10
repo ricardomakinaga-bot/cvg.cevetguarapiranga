@@ -1,0 +1,39 @@
+---
+import ClinicalNotice from "@/components/ClinicalNotice.astro";
+
+const symptoms = [
+  "Dificuldade para respirar",
+  "Convulsoes",
+  "Sangramento ou dor intensa",
+  "Trauma ou suspeita de intoxicacao",
+  "Vomitos ou diarreia persistentes",
+  "Apatia importante ou piora repentina",
+];
+---
+
+<section id="quando-procurar" class="cvg-section bg-cvg-background">
+  <div class="cvg-shell grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
+    <div>
+      <p class="text-sm font-bold uppercase tracking-wide text-cvg-primary">Quando procurar</p>
+      <h2 class="mt-2 text-3xl font-extrabold leading-tight tracking-normal text-cvg-text md:text-4xl">Orientacao calma para decidir o proximo passo</h2>
+      <p class="mt-4 text-cvg-muted">
+        Em sinais importantes, procure avaliacao veterinaria. A equipe orienta os proximos passos conforme a avaliacao de cada cao ou gato.
+      </p>
+    </div>
+    <div>
+      <ul class="grid gap-3 sm:grid-cols-2" aria-label="Sinais que indicam avaliacao veterinaria">
+        {symptoms.map((symptom) => (
+          <li class="flex gap-3 rounded-lg border border-cvg-border bg-white p-3 text-cvg-muted shadow-sm">
+            <span class="mt-1 h-2.5 w-2.5 flex-none rounded-full bg-cvg-emergency" aria-hidden="true"></span>
+            <span>{symptom}</span>
+          </li>
+        ))}
+      </ul>
+      <div class="mt-4">
+        <ClinicalNotice tone="emergency">
+          <p>Este site nao substitui avaliacao veterinaria. Evite medicar sem orientacao profissional.</p>
+        </ClinicalNotice>
+      </div>
+    </div>
+  </div>
+</section>

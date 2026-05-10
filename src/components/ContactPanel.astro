@@ -1,0 +1,30 @@
+---
+import CTAGroup from "@/components/CTAGroup.astro";
+import { contact } from "@/lib/site";
+
+interface Props {
+  title?: string;
+  text?: string;
+  compact?: boolean;
+}
+
+const {
+  title = "Contato e localizacao",
+  text = "Fale com a equipe e mantenha o endereco textual visivel para orientar a chegada.",
+  compact = false,
+} = Astro.props;
+---
+
+<div class:list={["rounded-lg border border-cvg-border bg-white shadow-sm", compact ? "p-5" : "p-6"]}>
+  <p class="text-sm font-bold uppercase tracking-wide text-cvg-primary">CVG</p>
+  <h2 class:list={["mt-2 font-extrabold leading-tight text-cvg-text", compact ? "text-2xl" : "text-3xl"]}>{title}</h2>
+  <p class="mt-3 text-cvg-muted">{text}</p>
+  <address class="mt-5 border-l-4 border-cvg-primary bg-cvg-background p-4 not-italic text-cvg-muted">
+    <strong class="block text-cvg-text">{contact.name}</strong>
+    {contact.addressSummary}<br />
+    {contact.region}
+  </address>
+  <div class="mt-5">
+    <CTAGroup secondaryLabel="Como chegar" secondaryHref={contact.mapsHref} />
+  </div>
+</div>

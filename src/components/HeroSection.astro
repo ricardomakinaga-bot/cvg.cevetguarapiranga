@@ -1,5 +1,7 @@
 ---
 import { contact, trustBadges } from "@/lib/site";
+import CTAGroup from "@/components/CTAGroup.astro";
+import TrustBadge from "@/components/TrustBadge.astro";
 
 interface Props {
   eyebrow?: string;
@@ -25,28 +27,41 @@ const {
 const isEmergency = variant === "emergency";
 ---
 
-<section class:list={["cvg-hero", "bg-cvg-background", isEmergency ? "border-l-4 border-cvg-emergency" : ""]}>
-  <div class:list={["cvg-shell grid gap-8 py-8 md:py-14 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:py-20", showMobileNextCue ? "pb-6 md:pb-14 lg:pb-20" : ""]}>
+<section class:list={["cvg-hero relative overflow-hidden border-b border-cvg-border bg-cvg-background", isEmergency ? "border-l-4 border-cvg-emergency" : ""]}>
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-32 bg-cvg-light-gradient opacity-75" aria-hidden="true"></div>
+  <div class="cvg-shell relative grid gap-8 py-8 md:py-14 lg:grid-cols-[1.08fr_0.92fr] lg:items-center lg:py-16">
     <div>
-      <p class:list={["mb-4 inline-flex rounded-full border px-3 py-1 text-sm font-bold", isEmergency ? "border-cvg-emergency/40 bg-white text-cvg-deep" : "border-cvg-soft bg-cvg-clinical text-cvg-deep"]}>
+      <p class:list={["mb-4 inline-flex rounded-lg border px-3 py-1 text-sm font-bold", isEmergency ? "border-cvg-emergency/40 bg-white text-cvg-deep" : "border-cvg-soft bg-white text-cvg-deep"]}>
         {eyebrow}
       </p>
-      <h1 class="max-w-4xl text-4xl font-extrabold leading-tight tracking-normal text-cvg-text md:text-5xl">
+      <h1 class="max-w-4xl text-4xl font-extrabold leading-tight tracking-normal text-cvg-text md:text-5xl lg:text-6xl">
         {title}
       </h1>
-      <p class="mt-5 max-w-3xl text-lg text-cvg-muted">{description}</p>
-      <div class="mt-7 flex flex-col gap-3 sm:flex-row">
-        <a class="cvg-button cvg-button-primary" href={contact.whatsappHref}>{primaryLabel}</a>
-        <a class="cvg-button cvg-button-secondary" href={secondaryHref}>{secondaryLabel}</a>
+      <p class="mt-5 max-w-3xl text-lg leading-8 text-cvg-muted">{description}</p>
+      <div class="mt-7">
+        <CTAGroup
+          primaryLabel={primaryLabel}
+          primaryHref={contact.whatsappHref}
+          secondaryLabel={secondaryLabel}
+          secondaryHref={secondaryHref}
+        />
       </div>
-      <ul class="mt-7 grid grid-cols-2 gap-2 lg:grid-cols-4">
-        {trustBadges.map((badge) => (
-          <li class="list-none rounded-lg border border-cvg-border bg-white px-3 py-2 text-sm font-bold text-cvg-deep">{badge}</li>
-        ))}
+      <ul class="mt-7 grid grid-cols-2 gap-2 lg:grid-cols-4" aria-label="Sinais de confianca do CVG">
+        {trustBadges.map((badge) => <TrustBadge label={badge} />)}
       </ul>
     </div>
-    <div class="hidden overflow-hidden rounded-lg border border-cvg-border bg-white shadow-cvg md:block">
-      <img src="/assets/cvg-institucional.png" alt="Fachada institucional do Centro Veterinario Guarapiranga" class="h-full min-h-[260px] w-full object-cover" />
+    <div class="cvg-hero-media overflow-hidden rounded-lg border border-cvg-border bg-white shadow-cvg">
+      <img src="/assets/cvg-institucional.png" alt="Fachada institucional do Centro Veterinario Guarapiranga" class="h-full min-h-[240px] w-full object-cover md:min-h-[360px]" />
+      <div class="grid gap-3 border-t border-cvg-border bg-white p-4 sm:grid-cols-3">
+        <p class="text-sm text-cvg-muted"><strong class="block text-cvg-deep">24h</strong>Atendimento informado</p>
+        <p class="text-sm text-cvg-muted"><strong class="block text-cvg-deep">Caes e gatos</strong>Cuidado veterinario</p>
+        <p class="text-sm text-cvg-muted"><strong class="block text-cvg-deep">Zona Sul</strong>Avenida Guarapiranga</p>
+      </div>
     </div>
+    {showMobileNextCue && (
+      <a href="#quando-procurar" class="inline-flex items-center gap-2 text-sm font-bold text-cvg-deep no-underline lg:absolute lg:bottom-6 lg:left-4">
+        Ver quando procurar o CVG <span aria-hidden="true">↓</span>
+      </a>
+    )}
   </div>
 </section>

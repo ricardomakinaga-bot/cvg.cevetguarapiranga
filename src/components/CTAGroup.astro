@@ -1,0 +1,33 @@
+---
+import { contact } from "@/lib/site";
+
+interface Props {
+  primaryLabel?: string;
+  primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+  dangerLabel?: string;
+  dangerHref?: string;
+  align?: "start" | "center";
+}
+
+const {
+  primaryLabel = "Falar com a equipe",
+  primaryHref = contact.whatsappHref,
+  secondaryLabel,
+  secondaryHref,
+  dangerLabel,
+  dangerHref,
+  align = "start",
+} = Astro.props;
+---
+
+<div class:list={["flex flex-col gap-3 sm:flex-row", align === "center" ? "sm:justify-center" : ""]}>
+  <a class="cvg-button cvg-button-primary" href={primaryHref}>{primaryLabel}</a>
+  {secondaryLabel && secondaryHref && (
+    <a class="cvg-button cvg-button-secondary" href={secondaryHref}>{secondaryLabel}</a>
+  )}
+  {dangerLabel && dangerHref && (
+    <a class="cvg-button cvg-button-danger" href={dangerHref}>{dangerLabel}</a>
+  )}
+</div>

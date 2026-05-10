@@ -10,7 +10,7 @@ const { title, href, summary, image } = Astro.props;
 ---
 
 <article class="cvg-card flex h-full flex-col overflow-hidden">
-  {image && <img src={image} alt="" class="h-36 w-full object-cover" loading="lazy" />}
+  {image && <img src={image} alt="" class="aspect-[4/3] w-full object-cover" loading="lazy" />}
   <div class="flex flex-1 flex-col p-5">
     <h3 class="text-xl font-bold text-cvg-text">{title}</h3>
     <p class="mt-2 flex-1 text-cvg-muted">{summary}</p>

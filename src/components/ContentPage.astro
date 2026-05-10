@@ -1,9 +1,15 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
+import BlogCard from "@/components/cards/BlogCard.astro";
+import CampaignCard from "@/components/cards/CampaignCard.astro";
+import EmergencyGuidance from "@/components/EmergencyGuidance.astro";
 import FAQSection from "@/components/FAQSection.astro";
 import HeroSection from "@/components/HeroSection.astro";
 import LeadForm from "@/components/LeadForm.astro";
 import LocationMap from "@/components/LocationMap.astro";
+import ProcessSteps from "@/components/ProcessSteps.astro";
+import ServiceDetailPattern from "@/components/ServiceDetailPattern.astro";
 import ServiceGrid from "@/components/ServiceGrid.astro";
 
 interface Props {
@@ -15,45 +21,113 @@ const { entry, Content } = Astro.props;
 const isHome = entry.data.pageType === "home";
 const isServices = entry.data.pageType === "services";
 const isContact = entry.data.pageType === "contact";
+const isServiceDetail = entry.data.pageType === "service";
 const isEmergency = entry.data.route.includes("atendimento-24h");
+const secondaryHref = entry.data.ctaSecondary?.toLowerCase().includes("chegar")
+  ? "/contato#localizacao"
+  : isContact
+    ? "#localizacao"
+    : "/servicos";
 const heroVariant = isEmergency
   ? "emergency"
   : entry.data.pageType === "home" || entry.data.pageType === "services"
     ? "institutional"
     : entry.data.pageType;
+const heroTitle = isHome ? "Cuidado veterinario 24h para caes e gatos na Guarapiranga" : entry.data.title;
+const blogPosts = isHome ? (await getCollection("blog")).slice(0, 3) : [];
+const campaigns = isHome ? (await getCollection("campaigns")).slice(0, 3) : [];
 ---
 
 <HeroSection
-  title={entry.data.title}
+  title={heroTitle}
   description={entry.data.description}
   primaryLabel={entry.data.ctaPrimary}
   secondaryLabel={entry.data.ctaSecondary ?? "Conhecer servicos"}
-  secondaryHref={isContact ? "#localizacao" : "/servicos"}
+  secondaryHref={secondaryHref}
   variant={heroVariant}
   showMobileNextCue={isHome || isEmergency}
 />
 
-<section class="cvg-section bg-white">
-  <div class="cvg-shell">
-    <article class="cvg-prose">
-      <Content />
-    </article>
-    {entry.data.clinicalReviewRequired && (
-      <p class="mt-8 max-w-3xl rounded-lg border-l-4 border-cvg-emergency bg-cvg-background p-4 text-cvg-muted">
-        Conteudo educativo marcado para revisao clinica antes de publicacao final. Nao substitui avaliacao veterinaria.
-      </p>
-    )}
-  </div>
-</section>
-
-{(isHome || isServices) && <ServiceGrid />}
-{isContact ? (
+{isHome ? (
   <>
+    <section class="cvg-section bg-white">
+      <div class="cvg-shell">
+        <article class="cvg-prose">
+          <Content />
+        </article>
+      </div>
+    </section>
+    <EmergencyGuidance />
+    <ServiceGrid />
+    <ProcessSteps />
+    <section class="cvg-section bg-cvg-background">
+      <div class="cvg-shell grid gap-8 lg:grid-cols-[0.78fr_1.22fr]">
+        <div>
+          <p class="text-sm font-bold uppercase tracking-wide text-cvg-primary">Orientacao educativa</p>
+          <h2 class="mt-2 text-3xl font-extrabold leading-tight text-cvg-text md:text-4xl">Conteudos para apoiar decisoes responsaveis</h2>
+          <p class="mt-4 text-cvg-muted">Artigos sao apoio educativo e nao substituem avaliacao veterinaria.</p>
+        </div>
+        <div class="grid gap-5 md:grid-cols-3">
+          {blogPosts.map((post) => (
+            <BlogCard
+              title={post.data.title}
+              description={post.data.description}
+              category={post.data.category}
+              href={`/blog/${post.slug}/`}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+    <section class="cvg-section bg-white">
+      <div class="cvg-shell">
+        <div class="mb-8 max-w-3xl">
+          <p class="text-sm font-bold uppercase tracking-wide text-cvg-primary">Campanhas</p>
+          <h2 class="mt-2 text-3xl font-extrabold leading-tight text-cvg-text">Campanhas institucionais e educativas</h2>
+          <p class="mt-3 text-cvg-muted">Campanhas mantem prioridade visual menor que emergencia, servicos e contato.</p>
+        </div>
+        <div class="grid gap-5 md:grid-cols-3">
+          {campaigns.map((campaign) => (
+            <CampaignCard
+              title={campaign.data.title}
+              description={campaign.data.description}
+              service={campaign.data.service}
+              status={campaign.data.status}
+              href={`/campanhas/${campaign.slug}/`}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
     <LeadForm />
     <LocationMap />
+    <FAQSection />
   </>
 ) : (
-  <LeadForm />
+  <>
+    <section class="cvg-section bg-white">
+      <div class="cvg-shell">
+        <article class="cvg-prose">
+          <Content />
+        </article>
+        {entry.data.clinicalReviewRequired && (
+          <p class="mt-8 max-w-3xl rounded-lg border-l-4 border-cvg-emergency bg-cvg-background p-4 text-cvg-muted">
+            Conteudo educativo marcado para revisao clinica antes de publicacao final. Nao substitui avaliacao veterinaria.
+          </p>
+        )}
+      </div>
+    </section>
+    {isServices && <ServiceGrid />}
+    {isServiceDetail && isEmergency && <ServiceDetailPattern />}
+    {isContact ? (
+      <>
+        <LeadForm />
+        <LocationMap />
+      </>
+    ) : (
+      <LeadForm />
+    )}
+    {!isContact && <LocationMap />}
+    <FAQSection />
+  </>
 )}
-{isHome && <LocationMap />}
-<FAQSection />

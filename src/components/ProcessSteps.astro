@@ -1,0 +1,35 @@
+---
+const steps = [
+  {
+    title: "Acolhimento",
+    text: "O tutor informa o que percebeu e a equipe direciona o primeiro atendimento com clareza.",
+  },
+  {
+    title: "Avaliacao veterinaria",
+    text: "Cada caso e examinado por um profissional, considerando sinais, historico e necessidade do paciente.",
+  },
+  {
+    title: "Orientacao dos proximos passos",
+    text: "A conduta, exames ou acompanhamento dependem da avaliacao e sao explicados ao tutor.",
+  },
+];
+---
+
+<section class="cvg-section bg-white">
+  <div class="cvg-shell">
+    <div class="mb-8 max-w-3xl">
+      <p class="text-sm font-bold uppercase tracking-wide text-cvg-primary">Como cuidamos</p>
+      <h2 class="mt-2 text-3xl font-extrabold tracking-normal text-cvg-text md:text-4xl">Processo simples, humano e clinicamente responsavel</h2>
+      <p class="mt-3 text-cvg-muted">A pagina evita promessas e explica uma jornada segura: acolher, avaliar e orientar.</p>
+    </div>
+    <ol class="grid gap-5 md:grid-cols-3">
+      {steps.map((step, index) => (
+        <li class="cvg-card list-none p-5">
+          <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-cvg-clinical font-extrabold text-cvg-deep">{String(index + 1).padStart(2, "0")}</span>
+          <h3 class="mt-4 text-xl font-extrabold text-cvg-text">{step.title}</h3>
+          <p class="mt-2 text-cvg-muted">{step.text}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
