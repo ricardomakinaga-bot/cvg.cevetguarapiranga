@@ -50,20 +50,25 @@ const campaigns = isHome ? (await getCollection("campaigns")).slice(0, 3) : [];
 
 {isHome ? (
   <>
+    <EmergencyGuidance />
+    <ServiceGrid />
+    <ProcessSteps />
     <section class="cvg-section bg-white">
-      <div class="cvg-shell">
-        <article class="cvg-prose">
+      <div class="cvg-shell grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
+        <div>
+          <p class="cvg-section-eyebrow">Informacao institucional</p>
+          <h2 class="mt-2 text-3xl font-extrabold leading-tight text-cvg-text md:text-4xl">Cuidado claro antes, durante e depois do atendimento</h2>
+          <p class="mt-4 text-cvg-muted">Conteudo aprovado do CVG preservado em HTML para leitura, acessibilidade e SEO.</p>
+        </div>
+        <article class="cvg-prose cvg-card p-5 md:p-6">
           <Content />
         </article>
       </div>
     </section>
-    <EmergencyGuidance />
-    <ServiceGrid />
-    <ProcessSteps />
-    <section class="cvg-section bg-cvg-background">
+    <section class="cvg-section bg-cvg-light-gradient">
       <div class="cvg-shell grid gap-8 lg:grid-cols-[0.78fr_1.22fr]">
         <div>
-          <p class="text-sm font-bold uppercase tracking-wide text-cvg-primary">Orientacao educativa</p>
+          <p class="cvg-section-eyebrow">Orientacao educativa</p>
           <h2 class="mt-2 text-3xl font-extrabold leading-tight text-cvg-text md:text-4xl">Conteudos para apoiar decisoes responsaveis</h2>
           <p class="mt-4 text-cvg-muted">Artigos sao apoio educativo e nao substituem avaliacao veterinaria.</p>
         </div>
@@ -82,7 +87,7 @@ const campaigns = isHome ? (await getCollection("campaigns")).slice(0, 3) : [];
     <section class="cvg-section bg-white">
       <div class="cvg-shell">
         <div class="mb-8 max-w-3xl">
-          <p class="text-sm font-bold uppercase tracking-wide text-cvg-primary">Campanhas</p>
+          <p class="cvg-section-eyebrow">Campanhas</p>
           <h2 class="mt-2 text-3xl font-extrabold leading-tight text-cvg-text">Campanhas institucionais e educativas</h2>
           <p class="mt-3 text-cvg-muted">Campanhas mantem prioridade visual menor que emergencia, servicos e contato.</p>
         </div>

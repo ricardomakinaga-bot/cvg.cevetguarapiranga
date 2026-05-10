@@ -9,6 +9,7 @@ interface Props {
   dangerLabel?: string;
   dangerHref?: string;
   align?: "start" | "center";
+  onDark?: boolean;
 }
 
 const {
@@ -19,13 +20,14 @@ const {
   dangerLabel,
   dangerHref,
   align = "start",
+  onDark = false,
 } = Astro.props;
 ---
 
 <div class:list={["flex flex-col gap-3 sm:flex-row", align === "center" ? "sm:justify-center" : ""]}>
   <a class="cvg-button cvg-button-primary" href={primaryHref}>{primaryLabel}</a>
   {secondaryLabel && secondaryHref && (
-    <a class="cvg-button cvg-button-secondary" href={secondaryHref}>{secondaryLabel}</a>
+    <a class:list={["cvg-button", onDark ? "border-white/45 bg-white/10 text-white hover:bg-white hover:text-cvg-deep" : "cvg-button-secondary"]} href={secondaryHref}>{secondaryLabel}</a>
   )}
   {dangerLabel && dangerHref && (
     <a class="cvg-button cvg-button-danger" href={dangerHref}>{dangerLabel}</a>

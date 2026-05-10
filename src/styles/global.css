@@ -15,7 +15,15 @@
   --color-gray-light: rgb(224, 224, 224);
   --color-text-dark: rgb(20, 30, 45);
   --color-text-gray: rgb(66, 66, 66);
+  --gradient-cvg-primary: linear-gradient(135deg, rgb(13, 71, 161) 0%, rgb(25, 118, 210) 50%, rgb(66, 165, 245) 100%);
   --gradient-cvg-light: linear-gradient(135deg, rgb(227, 242, 253) 0%, rgb(187, 222, 251) 100%);
+  --shadow-cvg-soft: 0 10px 28px rgb(20 30 45 / 0.08);
+  --shadow-cvg-elevated: 0 18px 42px rgb(20 30 45 / 0.12);
+  --motion-fast: 140ms;
+  --motion-base: 220ms;
+  --motion-slow: 420ms;
+  --motion-entrance: cubic-bezier(.2, .8, .2, 1);
+  --motion-state: cubic-bezier(.4, 0, .2, 1);
 }
 
 * {
@@ -59,10 +67,20 @@ textarea:focus-visible {
 
   .cvg-button {
     @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border px-5 py-2.5 text-center font-bold no-underline transition;
+    transition-duration: var(--motion-base);
+    transition-timing-function: var(--motion-state);
+  }
+
+  .cvg-button:active {
+    transform: scale(0.98);
   }
 
   .bg-cvg-light-gradient {
     background-image: var(--gradient-cvg-light);
+  }
+
+  .bg-cvg-primary-gradient {
+    background-image: var(--gradient-cvg-primary);
   }
 
   .cvg-button-primary {
@@ -78,7 +96,33 @@ textarea:focus-visible {
   }
 
   .cvg-card {
-    @apply rounded-lg border border-cvg-border bg-white shadow-sm;
+    @apply rounded-lg border border-cvg-border bg-white;
+    box-shadow: var(--shadow-cvg-soft);
+  }
+
+  .cvg-interactive-card {
+    transition:
+      transform var(--motion-base) var(--motion-entrance),
+      box-shadow var(--motion-base) var(--motion-entrance),
+      border-color var(--motion-base) var(--motion-state),
+      background-color var(--motion-base) var(--motion-state);
+  }
+
+  .cvg-intent-chip {
+    @apply inline-flex items-center rounded-full border border-cvg-soft bg-cvg-clinical px-3 py-1 text-xs font-extrabold uppercase text-cvg-deep;
+  }
+
+  .cvg-emergency-chip {
+    @apply inline-flex items-center rounded-full border border-cvg-emergency/35 bg-white px-3 py-1 text-xs font-extrabold uppercase text-cvg-emergency;
+  }
+
+  .cvg-section-eyebrow {
+    @apply text-sm font-bold uppercase tracking-wide text-cvg-primary;
+  }
+
+  .cvg-motion-reveal {
+    animation: cvg-reveal var(--motion-slow) var(--motion-entrance) both;
+    animation-delay: var(--reveal-delay, 0ms);
   }
 
   .cvg-prose {
@@ -149,6 +193,16 @@ textarea:focus-visible {
 
   .floating-whatsapp {
     bottom: calc(16px + env(safe-area-inset-bottom));
+    animation: cvg-fade-in var(--motion-slow) var(--motion-entrance) 300ms both;
+    transition:
+      background-color var(--motion-base) var(--motion-state),
+      border-color var(--motion-base) var(--motion-state),
+      color var(--motion-base) var(--motion-state),
+      transform var(--motion-base) var(--motion-entrance);
+  }
+
+  .floating-whatsapp:active {
+    transform: scale(0.98);
   }
 
   [data-consent-visible="true"] .floating-whatsapp {
@@ -198,6 +252,13 @@ textarea:focus-visible {
   }
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .cvg-interactive-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-cvg-elevated);
+  }
+}
+
 @media (max-width: 767px) {
   body {
     padding-bottom: calc(5rem + env(safe-area-inset-bottom));
@@ -228,5 +289,33 @@ textarea:focus-visible {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+
+  .cvg-button:active,
+  .floating-whatsapp:active,
+  .cvg-interactive-card:hover {
+    transform: none !important;
+  }
+}
+
+@keyframes cvg-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cvg-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }

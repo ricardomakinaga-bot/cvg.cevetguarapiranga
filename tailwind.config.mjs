@@ -23,6 +23,8 @@ export default {
       },
       boxShadow: {
         cvg: "0 12px 32px rgb(20 30 45 / 0.10)",
+        "cvg-soft": "0 10px 28px rgb(20 30 45 / 0.08)",
+        "cvg-elevated": "0 18px 42px rgb(20 30 45 / 0.12)",
       },
       maxWidth: {
         shell: "1180px",
