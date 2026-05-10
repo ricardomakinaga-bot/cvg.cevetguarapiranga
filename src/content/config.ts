@@ -21,7 +21,15 @@ const blog = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    category: z.enum(["Prevencao", "Atendimento 24h", "Sinais de alerta", "Servicos"]),
+    category: z.enum([
+      "Prevencao",
+      "Atendimento 24h",
+      "Sinais de alerta",
+      "Servicos",
+      "Servicos veterinarios",
+      "Cuidado com gatos",
+      "Cuidado com caes",
+    ]),
     seoFocus: z.string(),
     audience: z.string(),
     clinicalReviewRequired: z.boolean(),

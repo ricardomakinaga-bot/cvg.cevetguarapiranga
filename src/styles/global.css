@@ -15,6 +15,7 @@
   --color-gray-light: rgb(224, 224, 224);
   --color-text-dark: rgb(20, 30, 45);
   --color-text-gray: rgb(66, 66, 66);
+  --gradient-cvg-light: linear-gradient(135deg, rgb(227, 242, 253) 0%, rgb(187, 222, 251) 100%);
 }
 
 * {
@@ -60,12 +61,20 @@ textarea:focus-visible {
     @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border px-5 py-2.5 text-center font-bold no-underline transition;
   }
 
+  .bg-cvg-light-gradient {
+    background-image: var(--gradient-cvg-light);
+  }
+
   .cvg-button-primary {
     @apply border-cvg-border bg-cvg-background text-cvg-deep hover:border-cvg-primary hover:bg-cvg-primary hover:text-white;
   }
 
   .cvg-button-secondary {
     @apply border-cvg-primary bg-transparent text-cvg-deep hover:bg-cvg-primary hover:text-white;
+  }
+
+  .cvg-button-danger {
+    @apply border-cvg-emergency bg-white text-cvg-emergency hover:bg-cvg-emergency hover:text-white;
   }
 
   .cvg-card {

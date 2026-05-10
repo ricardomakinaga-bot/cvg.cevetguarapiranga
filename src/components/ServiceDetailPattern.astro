@@ -1,0 +1,69 @@
+---
+import CTAGroup from "@/components/CTAGroup.astro";
+import ClinicalNotice from "@/components/ClinicalNotice.astro";
+import ServiceCard from "@/components/ServiceCard.astro";
+import { services } from "@/lib/site";
+
+const relatedServices = services.filter((service) => service.href !== "/servicos/atendimento-24h").slice(0, 3);
+const signs = [
+  "Dificuldade para respirar, convulsoes, sangramento ou dor intensa.",
+  "Trauma, suspeita de intoxicacao ou piora repentina.",
+  "Vomitos, diarreia ou apatia importante que nao melhora.",
+];
+const steps = [
+  "A equipe acolhe o tutor e entende os sinais observados.",
+  "O paciente passa por avaliacao veterinaria conforme a necessidade.",
+  "Os proximos passos sao orientados de acordo com a avaliacao, sem prometer diagnostico pelo site.",
+];
+---
+
+<section class="cvg-section bg-cvg-background">
+  <div class="cvg-shell grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+    <div>
+      <p class="text-sm font-bold uppercase tracking-wide text-cvg-primary">Atendimento 24h</p>
+      <h2 class="mt-2 text-3xl font-extrabold leading-tight text-cvg-text md:text-4xl">Quando procurar avaliacao veterinaria</h2>
+      <p class="mt-4 text-cvg-muted">
+        Esta pagina orienta sinais que justificam contato ou deslocamento ao CVG. A conduta depende da avaliacao presencial do cao ou gato.
+      </p>
+      <div class="mt-6">
+        <CTAGroup secondaryLabel="Como chegar" secondaryHref="/contato#localizacao" />
+      </div>
+    </div>
+    <div class="grid gap-4">
+      {signs.map((sign) => (
+        <ClinicalNotice tone="emergency">
+          <p>{sign}</p>
+        </ClinicalNotice>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="cvg-section bg-white">
+  <div class="cvg-shell">
+    <div class="mb-8 max-w-3xl">
+      <p class="text-sm font-bold uppercase tracking-wide text-cvg-primary">Como o atendimento e orientado</p>
+      <h2 class="mt-2 text-3xl font-extrabold leading-tight text-cvg-text md:text-4xl">Acolher, avaliar e orientar proximos passos</h2>
+    </div>
+    <ol class="grid gap-5 md:grid-cols-3">
+      {steps.map((step, index) => (
+        <li class="cvg-card list-none p-5">
+          <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-cvg-clinical font-extrabold text-cvg-deep">{String(index + 1).padStart(2, "0")}</span>
+          <p class="mt-4 text-cvg-muted">{step}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<section class="cvg-section bg-cvg-background">
+  <div class="cvg-shell">
+    <div class="mb-8 max-w-3xl">
+      <p class="text-sm font-bold uppercase tracking-wide text-cvg-primary">Servicos relacionados</p>
+      <h2 class="mt-2 text-3xl font-extrabold leading-tight text-cvg-text">Continuidade de cuidado quando indicada</h2>
+    </div>
+    <div class="grid gap-5 md:grid-cols-3">
+      {relatedServices.map((service) => <ServiceCard {...service} />)}
+    </div>
+  </div>
+</section>

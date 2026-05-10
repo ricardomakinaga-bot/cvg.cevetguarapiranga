@@ -7,12 +7,16 @@ import Layout from "@/components/Layout.astro";
 const page = await getEntry("pages", "campanhas");
 if (!page) throw new Error("Missing campaigns page content");
 const campaigns = await getCollection("campaigns");
+const { Content } = await page.render();
 ---
 
 <Layout title={page.data.title} description={page.data.description} canonical="/campanhas/">
   <HeroSection title={page.data.title} description={page.data.description} primaryLabel={page.data.ctaPrimary} secondaryLabel={page.data.ctaSecondary} secondaryHref="/servicos" variant="listing" />
   <section class="cvg-section bg-white">
     <div class="cvg-shell">
+      <article class="cvg-prose mb-8">
+        <Content />
+      </article>
       <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {campaigns.map((campaign) => (
           <CampaignCard

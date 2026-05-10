@@ -1,0 +1,19 @@
+---
+interface Props {
+  title?: string;
+  tone?: "info" | "emergency";
+}
+
+const { title, tone = "info" } = Astro.props;
+const isEmergency = tone === "emergency";
+---
+
+<aside
+  class:list={[
+    "rounded-lg border bg-white p-4 text-sm leading-6 text-cvg-muted",
+    isEmergency ? "border-cvg-emergency/35 border-l-4 border-l-cvg-emergency" : "border-cvg-border border-l-4 border-l-cvg-primary",
+  ]}
+>
+  {title && <p class="mb-1 font-extrabold text-cvg-text">{title}</p>}
+  <slot />
+</aside>
